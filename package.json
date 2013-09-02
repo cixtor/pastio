@@ -1,0 +1,19 @@
+{
+    "main": "index.html",
+    "name": "nw-pastio",
+    "description": "Multi-platform desktop application built on top of node-webkit, node.js and a public webservice maintained by cixtor.com to paste and visualize text/plain files like source code, markdown files, plain text documents and publish them public or privately for an unlimited time in a remote database and share those files using a unique link identifier.",
+    "version": "1.0",
+    "window": {
+        "title": "Cixtor/Pastio",
+        "icon": "application.png",
+        "toolbar": false,
+        "frame": true,
+        "width": 800,
+        "height": 550,
+        "position": "center",
+        "resizable": true
+    },
+    "webkit": {
+        "plugin": true
+    }
+}
