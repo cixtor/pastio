@@ -8,8 +8,20 @@
 	<script type="text/javascript" src="./assets/js/jquery.min.js"></script>
 	<script type="text/javascript" src="./assets/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body onload="prettyPrint()">
+	<div class="header">
+		<!-- <a class="logo" href="http://www.cixtor.com/"><img src="./assets/img/pastio.logo.png" alt="pastio logo"></a> -->
+		<ul class="buttons">
+			<li><a href="javascript: void(0)" id="savedoc">Save</a></li>
+		</ul>
+	</div>
 
+	<form id="pastioform" method="post">
+		<textarea name="paste" rows="10" cols="50"></textarea>
+	</form>
+
+	<script type="text/javascript" src="./assets/js/prettify.js"></script>
+	<script type="text/javascript" src="./assets/js/tabby.js"></script>
 	<script type="text/javascript" src="./assets/js/pastio.min.js"></script>
 </body>
 </html>
