@@ -1,15 +1,1 @@
-body{background-color:#222;margin:0;font-family:sans-serif;-webkit-user-select:none;-webkit-app-region:drag}
-.prettyprint, textarea{position:fixed;top:0;left:0;width:100%;height:100%;margin:0;line-height:1.8em}
-textarea{background-color:transparent;border:none;outline:0;resize:none;color:#ddd;width:100%;box-sizing:border-box;padding:2.5em;font-family:Monaco, 'Bitstream Vera Sans Mono', 'Lucida Console', Terminal, monospace;font-size:12px;padding:20px}
-.prettyprint{overflow:auto;white-space:pre-wrap;background-color:#222;font-size:12px;font-family:Monaco, 'Bitstream Vera Sans Mono', 'Lucida Console', Terminal, monospace}
-.prettyprint code{font-family:Monaco, 'Bitstream Vera Sans Mono', 'Lucida Console', Terminal, monospace !important}
-.prettyprint ol{color:#777;padding:2em 3em 2em 5em}
-.prettyprint ol li{padding:0}
-.com{color:#555}
-.lit{color:#17CFB6}
-.pun, .opn, .clo{color:#93a1a1}
-.fun{color:#dc322f}
-.str, .atv{color:#E3B446}
-.kwd, .linenums .tag{color:#DB613B}
-.typ, .atn, .dec, .var{color:#fff}
-.pln{color:#ccc}
+#pastioeditor{position:fixed;top:0;left:0;bottom:0;right:0}
