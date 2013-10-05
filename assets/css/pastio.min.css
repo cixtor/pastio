@@ -1,1 +1,17 @@
+/**
+ * Pastio
+ * http://www.cixtor.com/
+ * https://github.com/cixtor/pastio
+ *
+ * Multi-platform desktop application built on top of node-webkit, node.js and a
+ * public webservice maintained by cixtor.com to paste and visualize text/plain
+ * files like source code, markdown files, plain text documents and publish them
+ * public or privately for an unlimited time in a remote database and share those
+ * files using a unique link identifier.
+ */
+
+::-webkit-scrollbar{background:transparent;width:7px;height:7px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{border-radius:3px;background:rgba(120,120,120,0.75);border:1px solid #777}
+::-webkit-scrollbar-corner{background:transparent}
 #pastioeditor{position:fixed;top:0;left:0;bottom:0;right:0}
