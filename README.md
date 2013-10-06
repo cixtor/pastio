@@ -2,6 +2,8 @@
 
 [Pastio](http://www.cixtor.com/pastio) is a multi-platform desktop application built on top of [node-webkit](https://github.com/rogerwang/node-webkit), [node.js](http://nodejs.org/) and a public webservice maintained by [Cixtor](http://www.cixtor.com/) to paste and visualize `text/plain` files like source code, markdown files, plain text documents and publish them public or privately for an unlimited time in a remote database and share those files using a unique link identifier.
 
+![Pastio Screenshot](screenshot.png)
+
 ### Motivation
 
 I wanted to have a desktop application, simple, maintainable, versatile and public, to mimic services like [Gist](https://gist.github.com/) or [PasteBin](http://pastebin.com/) on my own server and contribute to improve the workflow of the people in the company where I actually work.
