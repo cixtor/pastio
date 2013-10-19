@@ -15,3 +15,9 @@
 ::-webkit-scrollbar-thumb{border-radius:3px;background:rgba(120,120,120,0.75);border:1px solid #777}
 ::-webkit-scrollbar-corner{background:transparent}
 #pastioeditor{position:fixed;top:0;left:0;bottom:0;right:0}
+#pastio-bottom{min-height:25px}
+#pastio-bottom .container{padding-left:40px;padding-right:40px}
+#pastio-bottom ul, .pastio-bottom li{margin:0;padding:0;list-style:none}
+#pastio-bottom li{font-family:Monospace,Courier,consola;font-size:11px;color:#fff;float:left;line-height:24px}
+#pastio-bottom .pull-left li{margin-right:20px}
+#pastio-bottom .pull-right li{margin-left:20px}
