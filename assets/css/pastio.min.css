@@ -21,6 +21,8 @@
 #pastio-bottom li{font-family:Monospace,Courier,consola;font-size:11px;color:#fff;float:left;line-height:24px}
 #pastio-bottom .pull-left li{margin-right:20px}
 #pastio-bottom .pull-right li{margin-left:20px}
+#pastio-modal .modal-body a{display:block;background:#f5f5f5;font-size:22px;text-align:center;margin:10px -20px 0 -20px;padding:10px 20px}
+#pastio-modal .modal-footer{margin-top:0}
 .pastio-syntax-list{max-height:200px;overflow:hidden;overflow-y:auto;margin:0;padding:0}
 .pastio-syntax-list li{list-style:none}
 .pastio-syntax-list .set-pastio-mode{display:block;cursor:pointer}
