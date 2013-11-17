@@ -1,18 +1,20 @@
 # Pastio
 
-[Pastio](http://www.cixtor.com/pastio) is a multi-platform desktop application built on top of [node-webkit](https://github.com/rogerwang/node-webkit), [node.js](http://nodejs.org/) and a public webservice maintained by [Cixtor](http://www.cixtor.com/) to paste and visualize `text/plain` files like source code, markdown files, plain text documents and publish them public or privately for an unlimited time in a remote database and share those files using a unique link identifier.
+[Pastio](http://cixtor.com/pastio) is a multi-platform desktop application built on top of [node-webkit](https://github.com/rogerwang/node-webkit), [node.js](http://nodejs.org/) and a public web-service maintained by [Cixtor](http://cixtor.com/) to paste, collaborate and visualize `text/plain` files like source code, markdown files, plain text documents and publish them public or privately for an unlimited time and share those files using a unique link identifier.
 
 ![Pastio Screenshot](screenshot.png)
 
-### Motivation
+### Features
 
-I wanted to have a desktop application, simple, maintainable, versatile and public, to mimic services like [Gist](https://gist.github.com/) or [PasteBin](http://pastebin.com/) on my own server and contribute to improve the workflow of the people in the company where I actually work.
-
-### Inspiration
-
-The initial interface created for this application was inspired by the webll built Markdown reader [Haroopad](https://github.com/rhiokim/haroopad) and the [Laravel Paste Service](http://paste.laravel.com/), both of them haave a good front-end and I wanted to have that kind of interface for this project.
-
-However, as the time passes, the design of the interface will probably change. Since I'm not a designer, I have to say that probably all the initial elements that will be provided here will be copied from other applications, at least in the first stages of the development, and then I will put my own changes to make those a bit different.
+* Web and Desktop application.
+* Download, view raw and print.
+* Inline code editor powered by [Ace Editor](https://github.com/ajaxorg/ace).
+* More than 100 modes for syntax.
+* Collaborative mode powered by [TogetherJS](https://togetherjs.com/).
+* Text chat powered by [Web RTC](http://www.webrtc.org/).
+* Audio chat with familiar instant messaging.
+* User mouse focus indicator.
+* Real time content syncronization.
 
 ### License
 
