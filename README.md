@@ -1,20 +1,8 @@
-# Pastio
+### Pastio
 
-[Pastio](http://cixtor.com/pastio) is a multi-platform desktop application built on top of [node-webkit](https://github.com/rogerwang/node-webkit), [node.js](http://nodejs.org/) and a public web-service maintained by [Cixtor](http://cixtor.com/) to paste, collaborate and visualize `text/plain` files like source code, markdown files, plain text documents and publish them public or privately for an unlimited time and share those files using a unique link identifier.
+[Pastio](http://cixtor.com/pastio) is a web service that provides similar functionality to the popular _Pastebin_ website. It offers a basic code editor with syntax highlighting in multiple programming languages, and the ability to store the code in the server for an unlimited period of time. Additionally, a list of recent pastes can be accessed from the interface as long as the user is authorized to do so. The interface also allows collaboration leveraging the functionality to the [Mozilla Together.JS](https://togetherjs.com/) project which offers audio chat, user focus (multi-cursors), text chat, and real-time content synchronization.
 
-![Pastio Screenshot](screenshot.png)
-
-### Features
-
-* Web and Desktop application.
-* Download, view raw and print.
-* Inline code editor powered by [Ace Editor](https://github.com/ajaxorg/ace).
-* More than 100 modes for syntax.
-* Collaborative mode powered by [TogetherJS](https://togetherjs.com/).
-* Text chat powered by [Web RTC](http://www.webrtc.org/).
-* Audio chat with familiar instant messaging.
-* User mouse focus indicator.
-* Real time content syncronization.
+This is the 3rd iteration of the project, originally built on top of Node.JS then rewritten in PHP using the Laravel framework, and ultimately rewritten as a web service powered by the Go programming language.
 
 ### License
 
