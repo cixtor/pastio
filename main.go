@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 	"os"
@@ -19,8 +20,18 @@ func (p *Pastio) Port() string {
 	return port
 }
 
-func Index(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hello world!\n"))
+func render(name string, w http.ResponseWriter) {
+	tpl, err := template.ParseFiles(name)
+
+	if err != nil {
+		log.Print(err)
+	} else {
+		tpl.Execute(w, nil)
+	}
+}
+
+func index(w http.ResponseWriter, r *http.Request) {
+	render("_views/index.tmpl", w)
 }
 
 func main() {
@@ -30,7 +41,7 @@ func main() {
 
 	log.Printf("Running server on %s", port)
 
-	http.HandleFunc("/", Index)
+	http.HandleFunc("/", index)
 
 	http.ListenAndServe(port, nil)
 }
