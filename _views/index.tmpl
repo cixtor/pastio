@@ -1,18 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title></title>
+    <title>Pastio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Software Engineer with experience in Linux, TDD, Vala, Go, GTK, QT, Bash, PHP, HTML, CSS, and JavaScript; some Ruby and Python. Fluent in English, French and Spanish." />
+    <meta name="keywords" content="yorman, cixtor, cixtords, security analyst, software developer, unix, performance, security, vala, golang, ruby, python, php, varnish, nginx, mongodb" />
+    <link media="all" type="text/css" rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+    <link media="all" type="text/css" rel="stylesheet" href="/assets/css/bootstrap-theme.min.css" />
+    <link media="all" type="text/css" rel="stylesheet" href="/assets/css/pastio.min.css" />
 </head>
-<body>
 
-<p>
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-</p>
+<body class="pastio pastio-editor">
+    <div class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
 
+                <a href="//cixtor.com" title="Cixtor (/ˈsɪkstorr/)" class="navbar-brand">
+                    <img src="//cixtor.com/img/cixtor-logo/70x70.png" class="weblogo" width="70" height="70" alt="cixtor" />
+                </a>
+            </div>
+
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">File <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/" id="pastio-new"><i class="fa fa-file-o"></i>New</a></li>
+                            <li><a href="/save" id="pastio-save"><i class="fa fa-floppy-o"></i>Save</a></li>
+                            <li><a href="/download" class="disabled-link"><i class="fa fa-download"></i>Download</a></li>
+                            <li><a href="/raw" target="_blank" class="disabled-link"><i class="fa fa-code"></i>Raw</a></li>
+                            <li><a href="/print" target="_blank" class="disabled-link"><i class="fa fa-print"></i>Print</a></li>
+                            <li><a href="#word-wrapping" id="pastio-wordwrap"><i class="fa fa-align-justify"></i>Word wrapping</a></li>
+                            <li><a href="https://cixtor.com/"><i class="fa fa-power-off"></i>Exit</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#syntax" id="pastio-syntax">Syntax</a></li>
+                    <li><a href="#together" id="pastio-together">Collaborate</a></li>
+                    <li><a href="#latest" id="pastio-latest">Latest</a></li>
+                    <li><a href="https://github.com/cixtor/pastio" class="btn btn-nectar navbar-btn">Download App</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right navbar-web-profiles">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Help <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://plus.google.com/+YormanArias" target="_blank" rel="publisher" data-stats="https://goo.gl/Crj7U.info"><i class="fa fa-user"></i>Author</a></li>
+                            <li class="divider"></li>
+                            <li><a href="https://www.gittip.com/cixtor/" target="_blank"><i class="fa fa-usd"></i>Donate</a></li>
+                            <li><a href="https://github.com/cixtor" target="_blank"><i class="fa fa-github-alt"></i>Source code</a></li>
+                            <li><a href="https://github.com/cixtor/pastio/issues/new" target="_blank"><i class="fa fa-cogs"></i>Request feature</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="pastioeditor"></div>
+
+    <div class="modal fade" id="pastio-modal" tabindex="-1" role="dialog" aria-labelledby="pastio-modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">modal_title</h4>
+                </div>
+
+                <div class="modal-body">modal_body</div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pastio-bottom" class="navbar navbar-default navbar-inverse navbar-fixed-bottom" role="navigation">
+        <div class="container clearfix">
+            <ul class="pull-left">
+                <li class="current-mode"></li>
+                <li class="total-lines"></li>
+                <!-- <li class="current-line"></li> -->
+                <!-- <li class="column-number"></li> -->
+                <li class="total-chars"></li>
+            </ul>
+
+            <ul class="pull-right">
+                <li class="word-wrapping"></li>
+            </ul>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/assets/js/ace/ace.js"></script>
+    <script type="text/javascript" src="/assets/js/pastio.min.js"></script>
+    <script type="text/javascript" src="https://togetherjs.com/togetherjs-min.js"></script>
 </body>
 </html>

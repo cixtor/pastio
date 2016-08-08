@@ -1,8 +1,8 @@
 /**
  * Pastio
- * http://cixtor.com/
- * http://cixtor.com/pastio
- * https://github.com/cixtor/pastio
+ * http: //cixtor.com/
+ * http: //cixtor.com/pastio
+ * https: //github.com/cixtor/pastio
  *
  * Multi-platform desktop application built on top of node-webkit, node.js and a
  * public webservice maintained by cixtor.com to paste and visualize text/plain
@@ -11,20 +11,225 @@
  * files using a unique link identifier.
  */
 
-::-webkit-scrollbar{background:transparent;width:7px;height:7px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{border-radius:3px;background:rgba(120,120,120,0.75);border:1px solid #777}
-::-webkit-scrollbar-corner{background:transparent}
-#pastioeditor{position:fixed;top:0;left:0;bottom:0;right:0}
-#pastio-bottom{min-height:25px}
-#pastio-bottom .container{width:100%;padding-left:40px;padding-right:40px}
-#pastio-bottom ul, .pastio-bottom li{margin:0;padding:0;list-style:none}
-#pastio-bottom li{font-family:Monospace,Courier,consola;font-size:11px;color:#fff;float:left;line-height:24px}
-#pastio-bottom .pull-left li{margin-right:20px}
-#pastio-bottom .pull-right li{margin-left:20px}
-#pastio-modal .modal-body a{display:block;background:#f5f5f5;font-size:22px;text-align:center;margin:10px -20px 0 -20px;padding:10px 20px}
-#pastio-modal .modal-footer{margin-top:0}
-.pastio-syntax-list{max-height:200px;overflow:hidden;overflow-y:auto;margin:0;padding:0}
-.pastio-syntax-list li{list-style:none}
-.pastio-syntax-list .set-pastio-mode{display:block;cursor:pointer}
-.pastio-syntax-list .set-pastio-mode:hover{color:#27cfc3}
+::-webkit-input-placeholder {
+    color: #aaa;
+}
+::-webkit-scrollbar {
+    background: transparent;
+    width: 7px;
+    height: 7px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #999;
+    background: rgba(120, 120, 120, 0.75);
+    border: 1px solid #777;
+    border-radius: 3px;
+}
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+::selection {
+    background: #27cfc3;
+    color: #fff;
+}
+@font-face {
+    font-family: 'OpenSansLight';
+    src: url('/assets/fonts/OpenSans-Light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'OpenSansRegular';
+    src: url('/assets/fonts/OpenSans-Regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'OpenSansSemibold';
+    src: url('/assets/fonts/OpenSans-Semibold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'OpenSansBold';
+    src: url('/assets/fonts/OpenSansBold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+body {
+    background: #f5f5f5;
+    font-family: 'OpenSansRegular';
+    padding-top: 100px;
+}
+a {
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    transition: none;
+}
+a.btn-nectar {
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.btn-nectar:active,
+.btn-nectar.active {
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.btn-nectar {
+    color: #fff;
+    background-image: -webkit-gradient(linear, left 0%, left 100%, from(#27cfc3), to(#20a89e));
+    background-image: -webkit-linear-gradient(top, #27cfc3, 0%, #20a89e, 100%);
+    background-image: -o-linear-gradient(top, #27cfc3, 0%, #20a89e, 100%);
+    background-image: -moz-linear-gradient(top, #27cfc3 0%, #20a89e 100%);
+    background-image: linear-gradient(to bottom, #27cfc3 0%, #20a89e 100%);
+    background-repeat: repeat-x;
+    border-color: #1d9b92;
+}
+.btn-nectar:hover,
+.btn-nectar:active,
+.btn-nectar.active {
+    background-color: #20a89e;
+    color: #fff;
+    border-color: #1d9b92;
+}
+.navbar {
+    min-height: 40px;
+}
+.navbar .navbar-brand {
+    position: absolute;
+    top: -15px;
+    padding: 0;
+}
+.navbar-nav > li > a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.navbar .container {
+    max-width: none;
+    width: auto;
+}
+.navbar .navbar-brand {
+    top: 5px;
+    left: 55px;
+}
+.navbar .navbar-brand .weblogo {
+    width: 30px;
+    height: 30px;
+    border: none;
+    box-shadow: none;
+    border-radius: 50%;
+}
+.navbar-fixed-top {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.navbar-default li a.navbar-btn {
+    font-size: 12px;
+    color: #fff;
+    padding: 1px 10px;
+}
+#pastioeditor {
+    position: fixed;
+    top: 41px;
+    left: 0;
+    bottom: 25px;
+    right: 0;
+}
+.popover-latest-pastes {
+    max-width: 500px;
+}
+.popover-latest-pastes td {
+    font-family: Monaco, Monospace, Courier;
+    padding: 4px 8px;
+}
+#pastio-bottom {
+    min-height: 25px;
+}
+#pastio-bottom .container {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+#pastio-bottom ul, .pastio-bottom li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+#pastio-bottom li {
+    font-family: Monospace, Courier, consola;
+    font-size: 11px;
+    color: #fff;
+    float: left;
+    line-height: 24px;
+}
+#pastio-bottom .pull-left li {
+    margin-right: 20px;
+}
+#pastio-bottom .pull-right li {
+    margin-left: 20px;
+}
+#pastio-modal .modal-body a {
+    display: block;
+    background: #f5f5f5;
+    font-size: 22px;
+    text-align: center;
+    margin: 10px -20px 0 -20px;
+    padding: 10px 20px;
+}
+#pastio-modal .modal-footer {
+    margin-top: 0;
+}
+.pastio-syntax-list {
+    max-height: 300px;
+    overflow: hidden;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+}
+.pastio-syntax-list li {
+    list-style: none;
+}
+.pastio-syntax-list .set-pastio-mode {
+    display: block;
+    cursor: pointer;
+}
+.pastio-syntax-list .set-pastio-mode:hover {
+    color: #27cfc3;
+}
+a.disabled-link, a.disabled-link:visited,
+a.disabled-link:active,
+a.disabled-link:hover {
+    background-color: #d9d9d9 !important;
+    color: #aaa !important;
+}
+
+@media (max-width:  760px) {
+    .navbar .navbar-brand {
+        left: 20px;
+    }
+    .navbar .navbar-brand .weblogo {
+        width: 40px;
+        height: 40px;
+    }
+    #pastioeditor {
+        top: 51px;
+    }
+    .navbar-btn {
+        display: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar .navbar-collapse {
+        margin-left: 70px;
+        margin-right: 15px;
+    }
+    .navbar-fixed-top .navbar-collapse,
+    .navbar-static-top .navbar-collapse,
+    .navbar-fixed-bottom .navbar-collapse {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
