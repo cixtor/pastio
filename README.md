@@ -4,6 +4,8 @@
 
 This is the 3rd iteration of the project, originally built on top of Node.JS then rewritten in PHP using the Laravel framework, and ultimately rewritten as a web service powered by the Go programming language.
 
+![Pastio Screenshot](screenshot.png)
+
 ### License
 
 ```

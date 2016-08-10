@@ -28,6 +28,7 @@ func main() {
 	log.Printf("Running server on :%s", port)
 
 	http.Handle("/assets/", serveStaticFile(PUBLIC_FOLDER))
+
 	http.HandleFunc("/", index)
 
 	http.ListenAndServe(":"+port, logger(http.DefaultServeMux))
