@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io/ioutil"
 	"os"
 )
 
@@ -12,4 +13,14 @@ func pwd(trailing string) string {
 	}
 
 	return dir + "/" + trailing
+}
+
+func saveFile(filename string, data string) error {
+	var directory string = filename[0 : len(filename)-10]
+
+	if err := os.MkdirAll(directory, 0755); err != nil {
+		return err
+	}
+
+	return ioutil.WriteFile(filename, []byte(data), 0644)
 }
