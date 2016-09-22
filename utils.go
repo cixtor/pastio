@@ -24,3 +24,9 @@ func saveFile(filename string, data string) error {
 
 	return ioutil.WriteFile(filename, []byte(data), 0644)
 }
+
+func fileExists(fpath string) bool {
+	_, err := os.Stat(fpath)
+
+	return err == nil
+}
