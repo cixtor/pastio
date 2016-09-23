@@ -2,6 +2,7 @@ package main
 
 import (
 	"io/ioutil"
+	"math/rand"
 	"os"
 )
 
@@ -33,4 +34,27 @@ func fileExists(fpath string) bool {
 
 func modeExists(mode string) bool {
 	return fileExists(pwd(PUBLIC_FOLDER + "/js/ace/mode-" + mode + ".js"))
+}
+
+func uniqueFname(length int) (string, []byte) {
+	var fpath string
+	var result = make([]byte, length)
+	var alpha = []byte("abcdefghijklmnopqrstuvwxyz")
+	var total int = len(alpha)
+
+	for i := 0; i < length; i++ {
+		result[i] = alpha[rand.Intn(total)]
+	}
+
+	fpath += STORAGE_FOLDER + "/"
+	fpath += string(result[0]) + "/"
+	fpath += string(result) + ".txt"
+
+	fpath = pwd(fpath)
+
+	if fileExists(fpath) {
+		return uniqueFname(length)
+	}
+
+	return fpath, result
 }
