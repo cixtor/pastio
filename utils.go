@@ -30,3 +30,7 @@ func fileExists(fpath string) bool {
 
 	return err == nil
 }
+
+func modeExists(mode string) bool {
+	return fileExists(pwd(PUBLIC_FOLDER + "/js/ace/mode-" + mode + ".js"))
+}
