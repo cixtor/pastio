@@ -8,6 +8,7 @@ import (
 
 const DEFAULT_PORT = "8080"
 const PUBLIC_FOLDER = "assets"
+const STORAGE_FOLDER = "storage"
 
 func main() {
 	var port string = os.Getenv("PORT")
@@ -30,6 +31,7 @@ func main() {
 	http.Handle("/assets/", serveStaticFile(PUBLIC_FOLDER))
 
 	http.HandleFunc("/", index)
+	http.HandleFunc("/save", save)
 
 	http.ListenAndServe(":"+port, logger(http.DefaultServeMux))
 }
