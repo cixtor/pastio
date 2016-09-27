@@ -9,9 +9,9 @@ import (
 )
 
 type Response struct {
-	Status  string `json:"status"`
-	Message string `json:"message"`
-	Data    string `json:"unique"`
+	Status   string `json:"status"`
+	Message  string `json:"message"`
+	Metadata string `json:"metadata"`
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
@@ -60,8 +60,8 @@ func save(w http.ResponseWriter, r *http.Request) {
 	var success Response
 
 	success.Status = "ok"
-	success.Data = string(fname)
 	success.Message = "Operation was successful"
+	success.Metadata = string(fname)
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 
