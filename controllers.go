@@ -8,17 +8,42 @@ import (
 	"time"
 )
 
+type Application struct{}
+
 type Response struct {
 	Status   string `json:"status"`
 	Message  string `json:"message"`
 	Metadata string `json:"metadata"`
 }
 
-func index(w http.ResponseWriter, r *http.Request) {
+type ModeList struct {
+	Status  string   `json:"status"`
+	Default string   `json:"default"`
+	Modes   []string `json:"modes"`
+}
+
+func (app *Application) Index(w http.ResponseWriter, r *http.Request) {
 	render("_views/index.tmpl", w)
 }
 
-func save(w http.ResponseWriter, r *http.Request) {
+func (app *Application) Modes(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		http.Error(w, "Invalid HTTP method", http.StatusBadRequest)
+		return
+	}
+
+	var success ModeList
+
+	success.Status = "ok"
+	success.Default = "php"
+	success.Modes = availableModes()
+
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+
+	json.NewEncoder(w).Encode(success)
+}
+
+func (app *Application) Save(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
 		http.Error(w, "Invalid HTTP method", http.StatusBadRequest)
 		return

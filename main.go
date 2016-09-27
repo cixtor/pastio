@@ -11,6 +11,7 @@ const PUBLIC_FOLDER = "assets"
 const STORAGE_FOLDER = "storage"
 
 func main() {
+	var app Application
 	var port string = os.Getenv("PORT")
 
 	/**
@@ -30,8 +31,9 @@ func main() {
 
 	http.Handle("/assets/", serveStaticFile(PUBLIC_FOLDER))
 
-	http.HandleFunc("/", index)
-	http.HandleFunc("/save", save)
+	http.HandleFunc("/modes", app.Modes)
+	http.HandleFunc("/save", app.Save)
+	http.HandleFunc("/", app.Index)
 
 	http.ListenAndServe(":"+port, logger(http.DefaultServeMux))
 }
