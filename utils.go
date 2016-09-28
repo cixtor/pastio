@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"io/ioutil"
 	"math/rand"
 	"os"
@@ -34,6 +35,20 @@ func fileExists(fpath string) bool {
 
 func modeExists(mode string) bool {
 	return fileExists(pwd(PUBLIC_FOLDER + "/js/ace/mode-" + mode + ".js"))
+}
+
+func fullFpath(unique string) (string, error) {
+	var fpath string
+
+	fpath += STORAGE_FOLDER + "/"
+	fpath += string(unique[0]) + "/"
+	fpath += string(unique) + ".txt"
+
+	if !fileExists(fpath) {
+		return "", errors.New("File does not exists")
+	}
+
+	return fpath, nil
 }
 
 func uniqueFname(length int) (string, []byte) {
