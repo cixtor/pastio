@@ -12,6 +12,7 @@ const STORAGE_FOLDER = "storage"
 
 func main() {
 	var app Application
+	var router = NewMiddleware()
 	var port string = os.Getenv("PORT")
 
 	/**
@@ -31,9 +32,9 @@ func main() {
 
 	http.Handle("/assets/", serveStaticFile(PUBLIC_FOLDER))
 
-	http.HandleFunc("/modes", app.Modes)
-	http.HandleFunc("/save", app.Save)
-	http.HandleFunc("/", app.Index)
+	router.POST("/save", app.Save)
+	router.GET("/modes", app.Modes)
+	router.GET("/", app.Index)
 
-	http.ListenAndServe(":"+port, logger(http.DefaultServeMux))
+	http.ListenAndServe(":"+port, router)
 }
