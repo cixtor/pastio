@@ -1,10 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -41,6 +43,32 @@ func (app *Application) Modes(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 
 	json.NewEncoder(w).Encode(success)
+}
+
+func (app *Application) RawCode(w http.ResponseWriter, r *http.Request) {
+	var ctx = r.Context()
+	var unique = ctx.Value("unique")
+
+	if unique == nil {
+		http.Error(w, "Unique ID is missing", http.StatusBadRequest)
+		return
+	}
+
+	fpath, err := fullFpath(unique.(string))
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
+		return
+	}
+
+	w.Header().Set("Content-Type", "text/plain; charset=UTF-8")
+
+	file, err := os.Open(fpath)
+	defer file.Close()
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		w.Write([]byte(scanner.Text() + "\n"))
+	}
 }
 
 func (app *Application) Save(w http.ResponseWriter, r *http.Request) {

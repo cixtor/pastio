@@ -34,6 +34,7 @@ func main() {
 
 	router.POST("/save", app.Save)
 	router.GET("/modes", app.Modes)
+	router.GET("/raw/:unique", app.RawCode)
 	router.GET("/", app.Index)
 
 	http.ListenAndServe(":"+port, router)
