@@ -9,11 +9,12 @@ import (
 )
 
 type Node struct {
-	Path        string
-	Params      []string
-	NumParams   int
-	NumSections int
-	Dispatcher  http.HandlerFunc
+	Path            string
+	Params          []string
+	NumParams       int
+	NumSections     int
+	Dispatcher      http.HandlerFunc
+	MatchEverything bool
 }
 
 type Middleware struct {
@@ -98,6 +99,12 @@ func (m *Middleware) Dispatcher(w http.ResponseWriter, r *http.Request) {
 			continue
 		}
 
+		/* Handle request for static files */
+		if child.MatchEverything {
+			child.Dispatcher(w, r)
+			return
+		}
+
 		/* Separate dynamic characters from URL */
 		parameters = []string{}
 		extra = r.URL.Path[lendef:lenreq]
@@ -148,6 +155,15 @@ func (m *Middleware) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		time.Now().Sub(start))
 }
 
+func (m *Middleware) ServeFiles(root string, prefix string) http.HandlerFunc {
+	fs := http.FileServer(http.Dir(root))
+	handler := http.StripPrefix(prefix, fs)
+
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		handler.ServeHTTP(w, r)
+	})
+}
+
 func (m *Middleware) Handle(method, path string, handle http.HandlerFunc) {
 	var node Node
 	var parts []string
@@ -177,6 +193,18 @@ func (m *Middleware) Handle(method, path string, handle http.HandlerFunc) {
 	node.Path += strings.Join(usable, "/")
 
 	m.Nodes[method] = append(m.Nodes[method], &node)
+}
+
+func (m *Middleware) STATIC(root string, prefix string) {
+	var node Node
+
+	node.Path = prefix
+	node.MatchEverything = true
+	node.Params = []string{"filepath"}
+	node.Dispatcher = m.ServeFiles(root, prefix)
+
+	m.Nodes["GET"] = append(m.Nodes["GET"], &node)
+	m.Nodes["POST"] = append(m.Nodes["POST"], &node)
 }
 
 func (m *Middleware) GET(path string, handle http.HandlerFunc) {

@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 	"os"
@@ -25,7 +26,14 @@ type ModeList struct {
 }
 
 func (app *Application) Index(w http.ResponseWriter, r *http.Request) {
-	render("_views/index.tmpl", w)
+	tpl, err := template.ParseFiles("_views/index.tmpl")
+
+	if err != nil {
+		log.Println("TPL: index.tmpl;", err)
+		return
+	}
+
+	tpl.Execute(w, nil)
 }
 
 func (app *Application) Modes(w http.ResponseWriter, r *http.Request) {

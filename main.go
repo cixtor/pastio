@@ -30,7 +30,7 @@ func main() {
 
 	log.Printf("Running server on :%s", port)
 
-	http.Handle("/assets/", serveStaticFile(PUBLIC_FOLDER))
+	router.STATIC(PUBLIC_FOLDER, "/assets")
 
 	router.POST("/save", app.Save)
 	router.GET("/modes", app.Modes)
