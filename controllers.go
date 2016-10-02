@@ -95,7 +95,7 @@ func (app *Application) Save(w http.ResponseWriter, r *http.Request) {
 
 	content += "=== start_metadata\n"
 	content += fmt.Sprintf("remote_addr: %s\n", r.RemoteAddr)
-	content += fmt.Sprintf("request_time: %s\n", int32(time.Now().Unix()))
+	content += fmt.Sprintf("request_time: %d\n", int32(time.Now().Unix()))
 	content += fmt.Sprintf("referer: %s\n", r.Header.Get("Referer"))
 	content += fmt.Sprintf("visibility: %s\n", r.Form.Get("visibility"))
 	content += fmt.Sprintf("mode: %s\n", mode)
