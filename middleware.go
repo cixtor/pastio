@@ -19,7 +19,7 @@ type Node struct {
 
 type Middleware struct {
 	Nodes    map[string][]*Node
-	NotFound http.HandlerFunc
+	NotFound http.Handler
 }
 
 func NewMiddleware() *Middleware {
@@ -129,7 +129,11 @@ func (m *Middleware) Dispatcher(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	http.NotFound(w, r)
+	if m.NotFound != nil {
+		m.NotFound.ServeHTTP(w, r)
+	} else {
+		http.NotFound(w, r)
+	}
 }
 
 func (m *Middleware) ServeHTTP(w http.ResponseWriter, r *http.Request) {
