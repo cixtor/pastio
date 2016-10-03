@@ -160,6 +160,11 @@ func (m *Middleware) ServeFiles(root string, prefix string) http.HandlerFunc {
 	handler := http.StripPrefix(prefix, fs)
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path[len(r.URL.Path)-1] == '/' {
+			http.Error(w, http.StatusText(403), http.StatusForbidden)
+			return
+		}
+
 		handler.ServeHTTP(w, r)
 	})
 }
