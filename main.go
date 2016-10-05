@@ -1,34 +1,19 @@
 package main
 
-import (
-	"log"
-	"net/http"
-	"os"
-)
+import "os"
+import "github.com/cixtor/middleware"
 
-const DEFAULT_PORT = "8080"
 const PUBLIC_FOLDER = "assets"
 const STORAGE_FOLDER = "storage"
 
 func main() {
 	var app Application
-	var router = NewMiddleware()
-	var port string = os.Getenv("PORT")
 
-	/**
-	 * Use default port number
-	 *
-	 * If no custom port number is specified via an environment variable we will
-	 * use the default one, hoping that it is not being used by a difference
-	 * process, the program will panic otherwise.
-	 *
-	 * @type {string}
-	 */
-	if port == "" {
-		port = DEFAULT_PORT
-	}
+	router := middleware.New()
 
-	log.Printf("Running server on :%s", port)
+	router.ReadTimeout = 5
+	router.WriteTimeout = 10
+	router.Port = os.Getenv("PORT")
 
 	router.STATIC(PUBLIC_FOLDER, "/assets")
 
@@ -37,5 +22,5 @@ func main() {
 	router.GET("/raw/:unique", app.RawCode)
 	router.GET("/", app.Index)
 
-	http.ListenAndServe(":"+port, router)
+	router.ListenAndServe()
 }
