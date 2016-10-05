@@ -71,11 +71,20 @@ func (app *Application) RawCode(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "text/plain; charset=UTF-8")
 
+	var line string
+	var safeToPrint bool
 	file, err := os.Open(fpath)
 	defer file.Close()
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		w.Write([]byte(scanner.Text() + "\n"))
+		line = scanner.Text()
+		if line == "=== end_metadata" {
+			safeToPrint = true
+			continue
+		}
+		if safeToPrint {
+			w.Write([]byte(line + "\n"))
+		}
 	}
 }
 
