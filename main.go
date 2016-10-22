@@ -3,8 +3,11 @@ package main
 import "os"
 import "github.com/cixtor/middleware"
 
-const PUBLIC_FOLDER = "assets"
-const STORAGE_FOLDER = "storage"
+// PublicFolder is the document root.
+const PublicFolder = "assets"
+
+// StorageFolder is where the submissions will be stored.
+const StorageFolder = "storage"
 
 func main() {
 	var app Application
@@ -15,7 +18,7 @@ func main() {
 	router.WriteTimeout = 10
 	router.Port = os.Getenv("PORT")
 
-	router.STATIC(PUBLIC_FOLDER, "/assets")
+	router.STATIC(PublicFolder, "/assets")
 
 	router.POST("/save", app.Save)
 	router.GET("/modes", app.Modes)

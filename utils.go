@@ -18,7 +18,7 @@ func pwd(trailing string) string {
 }
 
 func saveFile(filename string, data string) error {
-	var directory string = filename[0 : len(filename)-10]
+	directory := filename[0 : len(filename)-10]
 
 	if err := os.MkdirAll(directory, 0755); err != nil {
 		return err
@@ -34,13 +34,13 @@ func fileExists(fpath string) bool {
 }
 
 func modeExists(mode string) bool {
-	return fileExists(pwd(PUBLIC_FOLDER + "/js/ace/mode-" + mode + ".js"))
+	return fileExists(pwd(PublicFolder + "/js/ace/mode-" + mode + ".js"))
 }
 
 func fullFpath(unique string) (string, error) {
 	var fpath string
 
-	fpath += STORAGE_FOLDER + "/"
+	fpath += StorageFolder + "/"
 	fpath += string(unique[0]) + "/"
 	fpath += string(unique) + ".txt"
 
@@ -52,16 +52,18 @@ func fullFpath(unique string) (string, error) {
 }
 
 func uniqueFname(length int) (string, []byte) {
+	var total int
 	var fpath string
 	var result = make([]byte, length)
 	var alpha = []byte("abcdefghijklmnopqrstuvwxyz")
-	var total int = len(alpha)
+
+	total = len(alpha)
 
 	for i := 0; i < length; i++ {
 		result[i] = alpha[rand.Intn(total)]
 	}
 
-	fpath += STORAGE_FOLDER + "/"
+	fpath += StorageFolder + "/"
 	fpath += string(result[0]) + "/"
 	fpath += string(result) + ".txt"
 

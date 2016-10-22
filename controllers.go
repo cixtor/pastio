@@ -11,20 +11,28 @@ import (
 	"time"
 )
 
+// Application serves as the base for all the API endpoints
+// exposed by the web server. Some of the associated methods
+// write the content of a dynamic template and others are used
+// to process a HTTP request and return either a valid JSON
+// object or a HTTP status code.
 type Application struct{}
 
+// Response is the basic JSON object returned by the API.
 type Response struct {
 	Status   string `json:"status"`
 	Message  string `json:"message"`
 	Metadata string `json:"metadata"`
 }
 
+// ModeList is the JSON object for the supported editor syntax.
 type ModeList struct {
 	Status  string   `json:"status"`
 	Default string   `json:"default"`
 	Modes   []string `json:"modes"`
 }
 
+// Index parses and renders the template for the homepage.
 func (app *Application) Index(w http.ResponseWriter, r *http.Request) {
 	tpl, err := template.ParseFiles("_views/index.tmpl")
 
@@ -36,6 +44,11 @@ func (app *Application) Index(w http.ResponseWriter, r *http.Request) {
 	tpl.Execute(w, nil)
 }
 
+// Modes is the API endpoint resposible for returning ModeList
+// which is intended to contain a list of syntax highlighters of
+// popular programming languages. Every time the user clicks one
+// of the options the code editor will change its syntax
+// highlighter to increase the readability of the code.
 func (app *Application) Modes(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
 		http.Error(w, "Invalid HTTP method", http.StatusBadRequest)
@@ -53,6 +66,12 @@ func (app *Application) Modes(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(success)
 }
 
+// RawCode searches and renders the content of the requested
+// file in plain/text. The content of the file will not be
+// altered, it will be shown as is. If the unique ID is not
+// found in the storage folder the server will respond with a
+// 404 Not Found status code. Notice that the metadata will be
+// omitted from the response.
 func (app *Application) RawCode(w http.ResponseWriter, r *http.Request) {
 	var ctx = r.Context()
 	var unique = ctx.Value("unique")
@@ -88,6 +107,18 @@ func (app *Application) RawCode(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// Save accepts a POST request with the mode and code
+//
+// The parameters mode and code contain the syntax highlighter used by the user
+// during the creation of the text that will be sent to the server and the code
+// in itself respectively. Notice that additional information like the origin IP
+// address, request timestamp, visibility of the code, and referer will be
+// recorded along with the syntax and the content.
+//
+// The visibility is intended to be used by the code viewer to determine if the
+// IP has access to the code, for example, when someone submits a code and
+// selects "private" the code will only be accessible if the IP of the request
+// is in the allowed list.
 func (app *Application) Save(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
 		http.Error(w, "Invalid HTTP method", http.StatusBadRequest)
