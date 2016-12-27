@@ -1,7 +1,12 @@
 package main
 
-import "os"
-import "github.com/cixtor/middleware"
+import (
+	"flag"
+	"log"
+	"time"
+
+	"github.com/cixtor/middleware"
+)
 
 // PublicFolder is the document root.
 const PublicFolder = "assets"
@@ -9,14 +14,18 @@ const PublicFolder = "assets"
 // StorageFolder is where the submissions will be stored.
 const StorageFolder = "storage"
 
+var app Application
+
+var router = middleware.New()
+
+var addr string
+
 func main() {
-	var app Application
+	flag.StringVar(&addr, "addr", ":3000", "Hostname and port number to listen for HTTP requests")
+	flag.Parse()
 
-	router := middleware.New()
-
-	router.ReadTimeout = 5
-	router.WriteTimeout = 10
-	router.Port = os.Getenv("PORT")
+	router.ReadTimeout = time.Second * 5
+	router.WriteTimeout = time.Second * 10
 
 	router.STATIC(PublicFolder, "/assets")
 
@@ -25,5 +34,7 @@ func main() {
 	router.GET("/raw/:unique", app.RawCode)
 	router.GET("/", app.Index)
 
-	router.ListenAndServe()
+	if err := router.ListenAndServe(addr); err != nil {
+		log.Fatal(err)
+	}
 }
