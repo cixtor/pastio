@@ -9,6 +9,8 @@ import (
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/cixtor/middleware"
 )
 
 // Application serves as the base for all the API endpoints
@@ -73,15 +75,9 @@ func (app *Application) Modes(w http.ResponseWriter, r *http.Request) {
 // 404 Not Found status code. Notice that the metadata will be
 // omitted from the response.
 func (app *Application) RawCode(w http.ResponseWriter, r *http.Request) {
-	var ctx = r.Context()
-	var unique = ctx.Value("unique")
+	unique := middleware.Param(r, "unique")
 
-	if unique == nil {
-		http.Error(w, "Unique ID is missing", http.StatusBadRequest)
-		return
-	}
-
-	fpath, err := fullFpath(unique.(string))
+	fpath, err := fullFpath(unique)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusNotFound)
