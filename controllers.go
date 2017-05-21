@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
-	"html/template"
 	"log"
 	"net/http"
 	"os"
@@ -32,21 +31,6 @@ type ModeList struct {
 	Status  string   `json:"status"`
 	Default string   `json:"default"`
 	Modes   []string `json:"modes"`
-}
-
-// Index parses and renders the template for the homepage.
-func (app *Application) Index(w http.ResponseWriter, r *http.Request) {
-	tpl, err := template.ParseFiles("_views/index.tmpl")
-
-	if err != nil {
-		log.Println("TPL: index.tmpl;", err)
-		return
-	}
-
-	if err := tpl.Execute(w, nil); err != nil {
-		log.Println(err)
-		return
-	}
 }
 
 // Modes is the API endpoint resposible for returning ModeList
