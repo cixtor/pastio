@@ -43,7 +43,10 @@ func (app *Application) Index(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tpl.Execute(w, nil)
+	if err := tpl.Execute(w, nil); err != nil {
+		log.Println(err)
+		return
+	}
 }
 
 // Modes is the API endpoint resposible for returning ModeList
@@ -65,7 +68,10 @@ func (app *Application) Modes(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 
-	json.NewEncoder(w).Encode(success)
+	if err := json.NewEncoder(w).Encode(success); err != nil {
+		log.Println(err)
+		return
+	}
 }
 
 // RawCode searches and renders the content of the requested
@@ -88,9 +94,18 @@ func (app *Application) RawCode(w http.ResponseWriter, r *http.Request) {
 
 	var line string
 	var safeToPrint bool
+
 	file, err := os.Open(fpath)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
+		return
+	}
+
 	defer file.Close()
+
 	scanner := bufio.NewScanner(file)
+
 	for scanner.Scan() {
 		line = scanner.Text()
 		if line == "=== end_metadata" {
@@ -98,7 +113,7 @@ func (app *Application) RawCode(w http.ResponseWriter, r *http.Request) {
 			continue
 		}
 		if safeToPrint {
-			w.Write([]byte(line + "\n"))
+			_, _ = w.Write([]byte(line + "\n"))
 		}
 	}
 }
@@ -121,7 +136,10 @@ func (app *Application) Save(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	r.ParseForm()
+	if err := r.ParseForm(); err != nil {
+		log.Println(err)
+		return
+	}
 
 	var content string
 	mode := r.Form.Get("mode")
@@ -162,5 +180,8 @@ func (app *Application) Save(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 
-	json.NewEncoder(w).Encode(success)
+	if err := json.NewEncoder(w).Encode(success); err != nil {
+		log.Println(err)
+		return
+	}
 }
