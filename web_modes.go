@@ -6,13 +6,6 @@ import (
 	"net/http"
 )
 
-// ModeList is the JSON object for the supported editor syntax.
-type ModeList struct {
-	Status  string   `json:"status"`
-	Default string   `json:"default"`
-	Modes   []string `json:"modes"`
-}
-
 // Modes is the API endpoint resposible for returning ModeList
 // which is intended to contain a list of syntax highlighters of
 // popular programming languages. Every time the user clicks one
@@ -24,11 +17,15 @@ func (app *Application) Modes(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var success ModeList
-
-	success.Status = "ok"
-	success.Default = "php"
-	success.Modes = availableModes()
+	success := struct {
+		Status  string   `json:"status"`
+		Default string   `json:"default"`
+		Modes   []string `json:"modes"`
+	}{
+		Status:  "ok",
+		Default: "php",
+		Modes:   availableModes,
+	}
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 
@@ -36,4 +33,112 @@ func (app *Application) Modes(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
+}
+
+var availableModes = []string{
+	"abap",
+	"actionscript",
+	"ada",
+	"asciidoc",
+	"assembly_x86",
+	"autohotkey",
+	"batchfile",
+	"c9search",
+	"c_cpp",
+	"clojure",
+	"cobol",
+	"coffee",
+	"coldfusion",
+	"csharp",
+	"css",
+	"curly",
+	"dart",
+	"diff",
+	"django",
+	"d",
+	"dot",
+	"ejs",
+	"erlang",
+	"forth",
+	"ftl",
+	"glsl",
+	"golang",
+	"groovy",
+	"haml",
+	"handlebars",
+	"haskell",
+	"haxe",
+	"html_completions",
+	"html",
+	"html_ruby",
+	"ini",
+	"jack",
+	"jade",
+	"java",
+	"javascript",
+	"jsoniq",
+	"json",
+	"jsp",
+	"jsx",
+	"julia",
+	"latex",
+	"less",
+	"liquid",
+	"lisp",
+	"livescript",
+	"logiql",
+	"lsl",
+	"lua",
+	"luapage",
+	"lucene",
+	"makefile",
+	"markdown",
+	"matlab",
+	"mushcode_high_rules",
+	"mushcode",
+	"mysql",
+	"nix",
+	"objectivec",
+	"ocaml",
+	"pascal",
+	"perl",
+	"pgsql",
+	"php",
+	"plain_text",
+	"powershell",
+	"prolog",
+	"properties",
+	"protobuf",
+	"python",
+	"rdoc",
+	"rhtml",
+	"r",
+	"ruby",
+	"rust",
+	"sass",
+	"scad",
+	"scala",
+	"scheme",
+	"scss",
+	"sh",
+	"sjs",
+	"snippets",
+	"soy_template",
+	"space",
+	"sql",
+	"stylus",
+	"svg",
+	"tcl",
+	"tex",
+	"textile",
+	"text",
+	"toml",
+	"twig",
+	"typescript",
+	"vbscript",
+	"velocity",
+	"verilog",
+	"xml",
+	"xquery",
+	"yaml",
 }
