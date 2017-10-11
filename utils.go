@@ -33,10 +33,6 @@ func fileExists(fpath string) bool {
 	return err == nil
 }
 
-func modeExists(mode string) bool {
-	return fileExists(pwd(PublicFolder + "/js/ace/mode-" + mode + ".js"))
-}
-
 func fullFpath(unique string) (string, error) {
 	var fpath string
 

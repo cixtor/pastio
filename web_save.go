@@ -1,11 +1,12 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 	"time"
+
+	"github.com/cixtor/middleware"
 )
 
 // Save accepts a POST request with the mode and code
@@ -31,7 +32,6 @@ func (app *Application) Save(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var content string
 	mode := r.Form.Get("mode")
 	code := r.Form.Get("code")
 
@@ -45,7 +45,7 @@ func (app *Application) Save(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	content += "=== start_metadata\n"
+	content := "=== start_metadata\n"
 	content += fmt.Sprintf("remote_addr: %s\n", r.RemoteAddr)
 	content += fmt.Sprintf("request_time: %d\n", int32(time.Now().Unix()))
 	content += fmt.Sprintf("referer: %s\n", r.Header.Get("Referer"))
@@ -62,16 +62,13 @@ func (app *Application) Save(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var success Response
+	success := Response{
+		Status:   "ok",
+		Message:  "Operation was successful",
+		Metadata: string(fname),
+	}
 
-	success.Status = "ok"
-	success.Message = "Operation was successful"
-	success.Metadata = string(fname)
-
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-
-	if err := json.NewEncoder(w).Encode(success); err != nil {
+	if err := middleware.JSON(w, r, success); err != nil {
 		log.Println(err)
-		return
 	}
 }

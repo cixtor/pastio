@@ -35,6 +35,15 @@ func (app *Application) Modes(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func modeExists(mode string) bool {
+	for _, name := range availableModes {
+		if name == mode {
+			return true
+		}
+	}
+	return false
+}
+
 var availableModes = []string{
 	"abap",
 	"actionscript",
