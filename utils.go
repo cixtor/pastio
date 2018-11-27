@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"io/ioutil"
 	"math/rand"
 	"os"
@@ -31,20 +30,6 @@ func fileExists(fpath string) bool {
 	_, err := os.Stat(fpath)
 
 	return err == nil
-}
-
-func fullFpath(unique string) (string, error) {
-	var fpath string
-
-	fpath += StorageFolder + "/"
-	fpath += string(unique[0]) + "/"
-	fpath += string(unique) + ".txt"
-
-	if !fileExists(fpath) {
-		return "", errors.New("File does not exists")
-	}
-
-	return fpath, nil
 }
 
 func uniqueFname(length int) (string, []byte) {

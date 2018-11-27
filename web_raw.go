@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"errors"
 	"net/http"
 	"os"
 
@@ -26,9 +27,6 @@ func (app *Application) RawCode(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "text/plain; charset=UTF-8")
 
-	var line string
-	var safeToPrint bool
-
 	file, err := os.Open(fpath)
 
 	if err != nil {
@@ -37,6 +35,9 @@ func (app *Application) RawCode(w http.ResponseWriter, r *http.Request) {
 	}
 
 	defer file.Close()
+
+	var line string
+	var safeToPrint bool
 
 	scanner := bufio.NewScanner(file)
 
@@ -50,4 +51,14 @@ func (app *Application) RawCode(w http.ResponseWriter, r *http.Request) {
 			_, _ = w.Write([]byte(line + "\n"))
 		}
 	}
+}
+
+func fullFpath(unique string) (string, error) {
+	fpath := StorageFolder + "/" + string(unique[0]) + "/" + unique + ".txt"
+
+	if !fileExists(fpath) {
+		return "", errors.New("File does not exists")
+	}
+
+	return fpath, nil
 }
