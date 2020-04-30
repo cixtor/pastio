@@ -33,22 +33,15 @@ func fileExists(fpath string) bool {
 }
 
 func uniqueFname(length int) (string, []byte) {
-	var total int
-	var fpath string
-	var result = make([]byte, length)
-	var alpha = []byte("abcdefghijklmnopqrstuvwxyz")
-
-	total = len(alpha)
+	result := make([]byte, length)
+	alpha := []byte("abcdefghijklmnopqrstuvwxyz")
+	total := len(alpha)
 
 	for i := 0; i < length; i++ {
 		result[i] = alpha[rand.Intn(total)]
 	}
 
-	fpath += StorageFolder + "/"
-	fpath += string(result[0]) + "/"
-	fpath += string(result) + ".txt"
-
-	fpath = pwd(fpath)
+	fpath := pwd(StorageFolder + "/" + string(result[0]) + "/" + string(result) + ".txt")
 
 	if fileExists(fpath) {
 		return uniqueFname(length)
