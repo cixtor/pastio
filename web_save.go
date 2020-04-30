@@ -62,7 +62,11 @@ func (app *Application) Save(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	success := Response{
+	success := struct {
+		Status   string `json:"status"`
+		Message  string `json:"message"`
+		Metadata string `json:"metadata"`
+	}{
 		Status:   "ok",
 		Message:  "Operation was successful",
 		Metadata: string(fname),
