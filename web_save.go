@@ -9,6 +9,10 @@ import (
 	"github.com/cixtor/middleware"
 )
 
+func init() {
+	router.POST("/save", app.Save)
+}
+
 // Save accepts a POST request with the mode and code
 //
 // The parameters mode and code contain the syntax highlighter used by the user

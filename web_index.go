@@ -6,6 +6,10 @@ import (
 	"net/http"
 )
 
+func init() {
+	router.GET("/", app.Index)
+}
+
 // Index parses and renders the template for the homepage.
 func (app *Application) Index(w http.ResponseWriter, r *http.Request) {
 	tpl, err := template.ParseFiles("_views/index.tmpl")

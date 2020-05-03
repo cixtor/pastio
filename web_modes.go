@@ -6,6 +6,10 @@ import (
 	"net/http"
 )
 
+func init() {
+	router.GET("/modes", app.Modes)
+}
+
 // Modes is the API endpoint resposible for returning ModeList
 // which is intended to contain a list of syntax highlighters of
 // popular programming languages. Every time the user clicks one

@@ -9,6 +9,10 @@ import (
 	"github.com/cixtor/middleware"
 )
 
+func init() {
+	router.GET("/raw/:unique", app.RawCode)
+}
+
 // RawCode searches and renders the content of the requested
 // file in plain/text. The content of the file will not be
 // altered, it will be shown as is. If the unique ID is not
