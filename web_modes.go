@@ -16,11 +16,6 @@ func init() {
 // of the options the code editor will change its syntax
 // highlighter to increase the readability of the code.
 func (app *Application) Modes(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "GET" {
-		http.Error(w, "Invalid HTTP method", http.StatusBadRequest)
-		return
-	}
-
 	success := struct {
 		Status  string   `json:"status"`
 		Default string   `json:"default"`

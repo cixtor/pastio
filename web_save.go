@@ -26,11 +26,6 @@ func init() {
 // selects "private" the code will only be accessible if the IP of the request
 // is in the allowed list.
 func (app *Application) Save(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
-		http.Error(w, "Invalid HTTP method", http.StatusBadRequest)
-		return
-	}
-
 	if err := r.ParseForm(); err != nil {
 		log.Println(err)
 		return
