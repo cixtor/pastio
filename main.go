@@ -8,18 +8,17 @@ import (
 	"github.com/cixtor/middleware"
 )
 
-// StorageFolder is where the submissions will be stored.
-const StorageFolder = "storage"
-
 var app Application
 
 var router = middleware.New()
 
 var addr string
 var publicHTML string
+var storageFolder string
 
 func main() {
 	flag.StringVar(&publicHTML, "public-html", "assets", "Directory with all the js, css, and image files")
+	flag.StringVar(&storageFolder, "storage-folder", "storage", "Directory where the submissions will be stored")
 	flag.StringVar(&addr, "addr", ":3000", "Hostname and port number to listen for HTTP requests")
 	flag.Parse()
 

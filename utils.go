@@ -41,7 +41,7 @@ func uniqueFname(length int) (string, []byte) {
 		result[i] = alpha[rand.Intn(total)]
 	}
 
-	fpath := pwd(StorageFolder + "/" + string(result[0]) + "/" + string(result) + ".txt")
+	fpath := pwd(storageFolder + "/" + string(result[0]) + "/" + string(result) + ".txt")
 
 	if fileExists(fpath) {
 		return uniqueFname(length)

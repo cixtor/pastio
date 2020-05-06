@@ -58,7 +58,7 @@ func (app *Application) RawCode(w http.ResponseWriter, r *http.Request) {
 }
 
 func fullFpath(unique string) (string, error) {
-	fpath := StorageFolder + "/" + string(unique[0]) + "/" + unique + ".txt"
+	fpath := storageFolder + "/" + string(unique[0]) + "/" + unique + ".txt"
 
 	if !fileExists(fpath) {
 		return "", errors.New("File does not exists")
